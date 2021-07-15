@@ -1,0 +1,76 @@
+
+ <link rel="stylesheet" type = "text/css" href="{{url_for('static', filename = 'auth.css')}}">
+
+ {%extends 'index.html'%}
+
+{%block mid_container%}
+<div class = "body-container">
+<form method = "POST">
+    <label for="exampleInputEmail1">Introdu Codul format din 6 caractere</label>
+    <input name = "usersub" type="text" class="form-control user-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Introdu codul format din 6 caractere">
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{{ht}}
+<div class = "keyboard">
+<button class = "key-btn" value = "q" onclick="keyboard()">Q</button>
+<button class = "key-btn" value = "w" onclick="keyboard()">W</button>
+<button class = "key-btn" value = "e" onclick="keyboard()">E</button>
+<button class = "key-btn" value = "r" onclick="keyboard()">R</button>
+<button class = "key-btn" value = "t" onclick="keyboard()">T</button>
+<button class = "key-btn" value = "y" onclick="keyboard()">Y</button>
+<button class = "key-btn" value = "u" onclick="keyboard()">U</button>
+<button class = "key-btn" value = "i" onclick="keyboard()">I</button>
+<button class = "key-btn" value = "o" onclick="keyboard()">O</button>
+<button class = "key-btn" value = "p" onclick="keyboard()">P</button>
+<button class = "key-btn" value = "del" onclick="keyboard()">DEL</button><br>
+<button class = "key-btn" value = "a" onclick="keyboard()">A</button>
+<button class = "key-btn" value = "s" onclick="keyboard()">S</button>
+<button class = "key-btn" value = "d" onclick="keyboard()">D</button>
+<button class = "key-btn" value = "f" onclick="keyboard()">F</button>
+<button class = "key-btn" value = "g" onclick="keyboard()">G</button>
+<button class = "key-btn" value = "h" onclick="keyboard()">H</button>
+<button class = "key-btn" value = "j" onclick="keyboard()">J</button>
+<button class = "key-btn" value = "k" onclick="keyboard()">K</button>
+<button class = "key-btn" value = "l" onclick="keyboard()">L</button><br>
+<button class = "key-btn" value = "z" onclick="keyboard()">Z</button>
+<button class = "key-btn" value = "x" onclick="keyboard()">X</button>
+<button class = "key-btn" value = "c" onclick="keyboard()">C</button>
+<button class = "key-btn" value = "v" onclick="keyboard()">V</button>
+<button class = "key-btn" value = "b" onclick="keyboard()">B</button>
+<button class = "key-btn" value = "n" onclick="keyboard()">N</button>
+<button class = "key-btn" value = "m" onclick="keyboard()">M</button>
+
+</div>
+
+<h1>Sau scaneaza codul de bare</h1>
+
+
+{%with messages = get_flashed_messages()%}
+    {%if messages%}
+    {%if error%}
+    {%for msg in messages%}
+    <div class="alert alert-danger" role="alert">
+   {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()"><span> X <span></button>
+    </div>
+    {%endfor%}
+    {%endif%}
+    {%if not error%}
+     {%for msg in messages%}
+    <div class="alert alert-success" role="alert">
+      {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()"><span> X <span></button>
+    </div>
+     {%endfor%}
+      {%endif%}
+    {%endif%}
+    {%endwith%}
+<a href="{{url_for('index_page')}}"><button type="button" class="btn btn-primary btn-lg">Meniu principal</button></a>
+</div>
+
+
+
+{%endblock%}
+ {%block bottom_container%}
+  <div class = "footer-container"> <script type="text/javascript" src="{{ url_for('static', filename='keyboard.js') }}"></script></div>
+  {%endblock%}

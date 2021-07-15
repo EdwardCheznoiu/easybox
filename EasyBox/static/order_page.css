@@ -1,0 +1,48 @@
+.order-content{
+    position: relative;
+    width: 100%; 
+    padding: 20px; 
+    height: auto; 
+   
+} 
+
+.form-order-content{
+     justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+
+ 
+.order-box{
+    width: 600px;
+    height: 800px;
+    margin: 10px auto;
+    -webkit-box-shadow: 2px 4px 13px 0px rgba(0,0,0,0.55); 
+    box-shadow: 2px 4px 13px 0px rgba(0,0,0,0.55);
+    padding: 20px;
+    overflow-y: scroll;
+    
+}
+ 
+.no-data{
+    width:100%;
+    font-size: 20px; 
+    text-align: center;
+    color: #ff5050;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.btn-order{
+ 
+    bottom: -10%;
+    position: absolute;
+  
+}
+
+ 
+
+ 

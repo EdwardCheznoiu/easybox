@@ -1,0 +1,229 @@
+ <link rel="stylesheet" type = "text/css" href="{{url_for('static', filename = 'order_page.css')}}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{%extends 'site_base.html'%}
+
+
+
+ {%block header_image%}
+ 
+ {%endblock%}
+
+ 
+{%block main_content%}
+<div class="order-content">
+ {%with messages = get_flashed_messages()%}
+    {%if messages%}
+    {%if error%}
+    {%for msg in messages%}
+    <div class="alert alert-danger" role="alert">
+   {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()"><span> X <span></button>
+    </div>
+    {%endfor%}
+    {%endif%}
+    {%if not error%}
+     {%for msg in messages%}
+    <div class="alert alert-success" role="alert">
+      {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()"><span> X <span></button>
+    </div>
+     {%endfor%}
+      {%endif%}
+    {%endif%}
+    {%endwith%}
+    <form class="form-order-content" method="POST">
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="employee"> 
+
+          {%for employee in employees%}
+          <option value="{{employee[0]}}">{{employee[0]}} {{employee[1]}}</option>
+           
+          {%endfor%}
+        </select>
+        
+        
+        <div class="order-box">
+        <div class = "title">Comenzi</div>
+           <div class="input-group">
+                <input id="courier-search" type="search" class="form-control rounded" placeholder="Cauta curier" aria-label="Search" aria-describedby="search-addon" />
+            </div>
+            <div class="form-check"> 
+                <div id="datalistorders"> </div>
+            </div>     
+            </div> 
+            
+      
+    
+     <div class="order-box">
+        <div class = "title">Curier</div>
+           <div class="input-group">
+                <input id="courier-search" type="search" class="form-control rounded" placeholder="Cauta curier" aria-label="Search" aria-describedby="search-addon" />
+            </div>
+            <div class="form-check"> 
+                <div id="datalistcouriers"></div>
+            </div>     
+            </div>
+            
+    <div class="order-box">
+        <div class = "title">Sertar</div>
+           <div class="input-group">
+                <input id="courier-search" type="search" class="form-control rounded" placeholder="Cauta curier" aria-label="Search" aria-describedby="search-addon" />
+            </div>
+            <div class="form-check"> 
+             <div id="datalistdrawers">
+              
+                 </div>
+                <div id="hidd">
+              
+                 </div>
+            </div>     
+   </div>
+        
+        <div class="btn-order">
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+    </form>
+ 
+</div>
+ 
+    
+    
+      {%if ht%}
+    {%if error%}
+    <div class="alert alert-danger" role="alert">
+   {{ht}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()">X
+  </button>
+    </div>
+    {%endif%}
+    {%if not error%}
+    <div class="alert alert-success " role="alert">
+   {{ht}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()">X
+  </button>
+    </div>
+    {%endif%}
+    {%endif%}
+</div>
+{%endblock%}
+
+
+ 
+    
+
+{%block foot_container%}
+ 
+
+ <div class = "footer-c">
+           <script type="text/javascript" src="{{ url_for('static', filename='popup.js') }}"></script>
+           <script type="text/javascript" src="{{ url_for('static', filename='boot.js') }}"></script>
+       </div>
+       
+<script>   
+$(document).ready(function(){
+    courier = {{couriers | tojson}};
+    var data = "<div class='form-check'>";
+     $.each(courier, function(index, value){
+                    data += "<input id='courier-id' class='form-check-input' name='courierlist' type='checkbox' value="+ value[0] +">" + 
+                    "<label for='prodlist'>" + " " + value[0] + " " + value[1] +  " " + value[2] +  " </label><br>";
+    
+                });
+     $("#datalistcouriers").html(data);
+      $("#courier-search").on("input", function(e){
+        data = "";
+       $("#datalistcouriers").empty();
+        courierSearched = $("#courier-search").val();
+        $.ajax({
+            method:"post",
+            url:"/csearch",
+            data:{cdataPassed:courierSearched},
+            success:function(cSearch){
+                if(cSearch.length == 0){
+                    data += "<div class='no-data'>" +"Nu s-a gasit nimic..." + "</div>";
+                }
+                else{
+                $.each(cSearch, function(index, value){
+                    data += "<input id='courier-id' class='form-check-input' name='courierlist' type='checkbox' value=" + value[0] +">" +  
+                    "<label for='userlist'>" + " " + value[0] + " " + value[1]  + " " + value[2] + " </label><br>";
+                });
+                data += "</div>";
+                }
+                $("#datalistcouriers").html(data);
+            }
+        });
+    });
+});
+
+$(document).ready(function(){
+    ord = {{orders | tojson}};
+    
+    var data = "<div class='form-check'>";
+     $.each(ord, function(index, value){
+                    data += "<input class='form-check-input order-id' name='orderlist' type='checkbox' value="+value[0] +">" + 
+                    "<label for='prodlist'>" + " " + value[0] + " " + value[1] +  " " + value[2] + " " + value[3] + " " + value[4]+" </label><br>"+
+                    "<input type='hidden' name='hiddenusdid' value=" + value[1] +">";
+                });
+     $("#datalistorders").html(data);
+});
+
+
+$(document).ready(function(){
+      $(".order-id").on("click", function(e){
+       var data = "<div class='form-check'>";
+        var checkbox_value = "";
+         $(":checkbox").each(function () {
+        var ischecked = $(this).is(":checked");
+        if (ischecked) {
+            checkbox_value = $(this).val();
+        }
+        else{
+           $("#datalistdrawers").empty();
+        }
+        });
+        if (checkbox_value){
+        console.log(checkbox_value);
+         $.ajax({
+            method:"post",
+            url:"/drawer_select",
+            data:{drawerdataPassed:checkbox_value},
+            success:function(drawers){
+                console.log(drawers);
+                
+                    
+                 if(drawers.length == 0){
+                    data += "<div class='no-data'>" +"Nu s-a gasit nimic..." + "</div>";
+                }
+                else{
+                $.each(drawers, function(index, value){
+                    data += "<td><input id='drawer-id' class='form-check-input' name='drawerlist' type='checkbox' value=" + value[0] +">" +   
+                    "<label for='drawerlist'>" + " " + value[0] + " " + value[1]  + " " + value[2] + " " + value[3] + " </label></td><br>";
+                });
+                data += "</div>";
+                }
+                $("#datalistdrawers").html(data);
+            }
+        });
+    
+   }
+    });
+});
+
+
+$(document).ready(function(){
+      $(".order-id").on("click",function(){
+        var index = 0;
+        var data = "<div class='form-check'>";
+       $('.order-id').each(function() {
+            if (this.checked) {
+                 console.log(index);
+                 data += "<input type='hidden' name='hiddenuser' value=" + index +">";
+                 data += "</div>";
+                 $("#hidd").html(data);
+            }
+            index++;
+        });
+ 
+    });
+     });
+ 
+</script>
+{%endblock%}

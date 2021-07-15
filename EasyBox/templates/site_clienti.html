@@ -1,0 +1,147 @@
+
+ {%extends 'site_base.html'%}
+
+ {%block header_image%}
+ 
+ {%endblock%}
+ 
+ 
+ {%block main_content%}
+
+
+    <div class = "main-content">
+      {%with messages = get_flashed_messages()%}
+    {%if messages%}
+    {%if error%}
+    {%for msg in messages%}
+    <div class="alert alert-danger" role="alert">
+   {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()"><span> X <span></button>
+    </div>
+    {%endfor%}
+    {%endif%}
+    {%if not error%}
+     {%for msg in messages%}
+    <div class="alert alert-success" role="alert">
+      {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()"><span> X <span></button>
+    </div>
+     {%endfor%}
+      {%endif%}
+    {%endif%}
+    {%endwith%}
+    <div class = "search-box">
+    <div class="input-group">
+      <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+        aria-describedby="search-addon" />
+      <button type="button" class="btn btn-outline-primary">Cauta client</button>
+    </div>
+ </div>
+ <button type="button" class="btn btn-primary" onclick="toggle()">Adauga client nou</button>
+        <form class="user-form" method="POST">
+            <label for="exampleInputEmail1">Nume</label>
+            <input name = "fname" type="text" class="form-control user-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nume">
+            <label for="exampleInputEmail1">Prenume</label>
+            <input name = "lname" type="text" class="form-control user-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Prenume">
+            <label for="exampleInputEmail1">Email</label>
+            <input name = "email" type="text" class="form-control user-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+            <label for="exampleInputEmail1">Address</label>
+            <input name = "address" type="text" class="form-control user-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adresa">
+            <label for="exampleInputEmail1">Numar telefon</label>
+            <input name = "phone_nr" type="text" class="form-control user-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Numar telefon">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-danger floating-btn" onclick="toggle()">X</button>
+        </form>
+    </div>
+    {%if ht%}
+    {%if error%}
+    <div class="alert alert-danger" role="alert">
+   {{ht}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()"><span> X <span></button>
+    </div>
+    {%endif%}
+    {%if not error%}
+    <div class="alert alert-success " role="alert">
+   {{ht}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()">X</button>
+    </div>
+    {%endif%}
+    {%endif%}
+    
+    
+    {%with messages = get_flashed_messages()%}
+    {%if messages%}
+    {%if error%}
+    {%for msg in messages%}
+    <div class="alert alert-danger" role="alert">
+   {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()"><span> X <span></button>
+    </div>
+    {%endfor%}
+    {%endif%}
+    {%if not error%}
+     {%for msg in messages%}
+    <div class="alert alert-success" role="alert">
+      {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()"><span> X <span></button>
+    </div>
+     {%endfor%}
+      {%endif%}
+    {%endif%}
+    {%endwith%}
+   
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Prenume</th>
+      <th scope="col">Nume</th>
+      <th scope="col">Email</th>
+      <th scope="col">Oras</th>
+      <th scope="col">Telefon</th>
+      <th scope="col">Actiuni</th>
+    </tr>
+  </thead>
+  <tbody>
+  {%for user in users%}
+    <tr>
+    {%for j in range(0, leng + 1)%}
+        {%if j == 0%}
+          <th scope="row">{{user[j]}}</th>
+        {%endif%}
+        {%if j == 1%}
+          <td>{{user[j]}}</td>
+        {%endif%}
+        {%if j == 2%}
+          <td>{{user[j]}}</td>
+        {%endif%}
+        {%if j == 3%}
+          <td>{{user[j]}}</td>
+        {%endif%}
+        {%if j == 4%}
+        <td>{{user[j]}}
+        {%endif%}
+         {%if j == 5%}</td>
+        <td>{{user[j]}}
+        {%endif%}
+      {%endfor%}
+      <td>
+          <a href="/delete/{{user[0]}}" onclick="{if(confirm('Esti sigur ca vrei sa stegi inregistrarea?')){this.document.formname.submit();return true;}return false;}"><button type="button" class="btn btn-outline-danger" title="Sterge inregistrare">X</button></a>
+          <a href="/editf/{{user[0]}}"><button type="button" class="btn btn-outline-primary" title="Editeaza inregistrare">/</button></a>
+      </td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+
+ 
+    {%block foot_container%}
+    <footer>
+       <div class = "footer-c">
+           <script type="text/javascript" src="{{ url_for('static', filename='popup.js') }}"></script>
+           <script type="text/javascript" src="{{ url_for('static', filename='boot.js') }}"></script>
+       </div>
+    </footer>
+    {%endblock%}
+ 
+ {%endblock%}

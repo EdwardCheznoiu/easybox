@@ -1,0 +1,18 @@
+.keyboard{
+    width: auto;
+    height: auto; 
+ 
+}
+
+
+.key-btn{
+    border: 1px solid #000; 
+    width: 60px; 
+    height: 40px;
+
+}
+
+.user-input{
+    width: 50%;
+    margin: auto;
+}

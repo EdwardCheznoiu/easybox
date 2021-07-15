@@ -1,0 +1,70 @@
+html { height: 100%; }
+
+.top-container{
+    margin: auto; 
+    height: 60px;
+    width: 70%; 
+       border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+.body-container{
+    margin: auto 50px;
+    height: 800px;
+    width: 70%;
+    background-color: #fff;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+
+
+.footer-container{
+    margin: auto;
+    height: 60px; 
+    width: 70%;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+body{
+    background-color: #e6e6e6;
+}
+
+.logo{
+    width: 450px; 
+    height: 300px;
+    margin: auto; 
+     -webkit-box-shadow: 2px 4px 13px 0px rgba(0,0,0,0.55); 
+    box-shadow: 2px 4px 13px 0px rgba(0,0,0,0.55);
+}
+
+
+.logo img{
+    width: 100%;
+    height: 100%;
+}
+
+.logo #curier-name{
+    font-weight: bold;
+    font-size: 40px;
+    background-color: #ff751a;
+    color: #fff;
+}
+
+.highlight{
+    color: #339933;
+    width: 100%;
+    display: inline;
+}
+
+.infos{
+    width: 100%; 
+    margin: 160px auto;
+}
+
+.another{
+    margin-top: 30px; 
+    font-size: 30px;
+    font-weight: bold;
+}

@@ -1,0 +1,119 @@
+
+{%extends 'site_base.html'%}
+
+ {%block header_image%}
+ 
+ {%endblock%}
+ 
+ 
+ 
+ {%block main_content%}
+    <div class = "main-content">
+    <button type="button" class="btn btn-primary" onclick="toggle()">Adauga produs nou</button>
+     <div class="search-box">
+    <div class="input-group">
+      <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+        aria-describedby="search-addon" />
+      <button type="button" class="btn btn-outline-primary">Cauta produs</button>
+    </div>
+ </div>
+        <form method = "POST" class = "user-form">
+            <label for="exampleInputEmail1">Nume produs</label>
+            <input name = "prodname" type="text" class="form-control user-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nume produs">
+            <label for="exampleInputEmail1">Pret</label>
+            <input name = "prodprice" type="text" class="form-control user-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Pret">
+            <label for="exampleInputEmail1">Greutate</label>
+            <input name = "prodweight" type="text" class="form-control user-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Greutate">
+            <label for="exampleInputEmail1">Descriere</label>
+            <input name = "proddesc" type="text" class="form-control user-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Descriere">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-danger floating-btn" onclick="toggle()">X</button>
+        </form>
+ 
+    </div>
+   {%if ht%}
+    {%if error%}
+    <div class="alert alert-danger" role="alert">
+   {{ht}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()">X
+  </button>
+    </div>
+    {%endif%}
+    {%if not error%}
+    <div class="alert alert-success " role="alert">
+   {{ht}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()">X
+  </button>
+    </div>
+    {%endif%}
+    {%endif%}
+    {%with messages = get_flashed_messages()%}
+    {%if messages%}
+    {%if error%}
+    {%for msg in messages%}
+    <div class="alert alert-danger" role="alert">
+   {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()"><span> X <span></button>
+    </div>
+    {%endfor%}
+    {%endif%}
+    {%if not error%}
+     {%for msg in messages%}
+    <div class="alert alert-success" role="alert">
+      {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="disposal()"><span> X <span></button>
+    </div>
+     {%endfor%}
+      {%endif%}
+    {%endif%}
+    {%endwith%}
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nume</th>
+      <th scope="col">Pret</th>
+      <th scope="col">Greutate</th>
+      <th scope="col">Descriere</th>
+      <th scope="col">Actiuni</th>
+    </tr>
+  </thead>
+  <tbody>
+  {%for prod in products%}
+    <tr>
+    {%for j in range(0, leng)%}
+        {%if j == 0%}
+          <th scope="row">{{prod[j]}}</th>
+        {%endif%}
+        {%if j == 1%}
+          <td>{{prod[j]}}</td>
+        {%endif%}
+        {%if j == 2%}
+          <td>{{prod[j]}}</td>
+        {%endif%}
+        {%if j == 3%}
+          <td>{{prod[j]}}</td>
+        {%endif%}
+        {%if j == 4%}
+        <td>{{prod[j]}}</td>
+        {%endif%}
+      {%endfor%}
+      <td>
+          <a href="/delete_prod/{{prod[0]}}" onclick="{if(confirm('Esti sigur ca vrei sa stegi inregistrarea?')){this.document.formname.submit();return true;}return false;}"><button type="button" class="btn btn-outline-danger" title="Sterge inregistrare">X</button></a>
+          <a href="/edit_prod/{{prod[0]}}"><button type="button" class="btn btn-outline-primary" title="Editeaza inregistrare">/</button></a>
+      </td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+
+  {%block foot_container%}
+    <footer>
+       <div class = "footer-c">
+           <script type="text/javascript" src="{{ url_for('static', filename='popup.js') }}"></script>
+           <script type="text/javascript" src="{{ url_for('static', filename='boot.js') }}"></script>
+       </div>
+    </footer>
+    {%endblock%}
+
+{%endblock%}

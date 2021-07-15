@@ -1,0 +1,28 @@
+<link rel="stylesheet" type = "text/css" href="{{url_for('static', filename = 'index.css')}}">
+{%extends 'base.html'%}
+<html>
+
+{%block top_container%}
+<div class = "top-container"> 
+    <div class = "time-container">{{time}}</div>
+    <div class = "location-container">#easybox<br></div>
+</div>
+
+{%endblock%}
+  
+
+
+{%block mid_container%}
+<div class = "body-container">
+    <div class = "wellcome"><h1>Bine ai venit!</h1></div>
+ 
+    <div class = "button-holder">
+        <a href = "{{url_for('client_page')}}"><button id = "client">Client</button></a>
+        <a href = "{{url_for('curier_page')}}"><button id = "curier">Curier</button></a>
+    </div>
+  
+
+</div>
+{%endblock%}
+
+</html>

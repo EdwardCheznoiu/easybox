@@ -2,7 +2,7 @@ import psycopg2
 DB_HOST = "localhost"
 DB_NAME = "easybox"
 DB_USER = "postgres"
-DB_PASS = "dragondemort1"
+DB_PASS = "1234"
 DB_PORT = "5432"
  
 try:
